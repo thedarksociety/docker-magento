@@ -1,3 +1,5 @@
 .DS_Store
 /.idea/
 
+# For obvious reasons.
+/config/env/*.env
