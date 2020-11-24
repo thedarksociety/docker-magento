@@ -3,3 +3,6 @@
 
 # For obvious reasons.
 /config/env/*.env
+
+/src/*
+!/src/index.php
