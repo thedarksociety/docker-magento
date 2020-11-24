@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Environment installation from Composer
 
-[ -z "$1" ] && echo "Choose your installation version of Magento." && exit 1
-
-VERSION=$1
+if [[ $1 == '' ]]; then
+    VERSION=$MAGENTO_VERSION
+else
+    VERSION=$1
+fi
 
 composer create-project \
   --no-install \

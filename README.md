@@ -3,7 +3,7 @@ Docker Environment for Magento 2
 
 ### Description
 
-Attempted, never completed. Heavily influenced by others.
+YAMD - Yet another Magento Docker.
 
 
 Facts

@@ -13,13 +13,14 @@ start()
 
 environment:check()
 {
-    source ./lib/composer_auth.sh
+    source ./lib/composer_auth-check.sh
 }
 
 create()
 {
+    source ./config/env/app.env
     environment:check
-    source ./lib/composer_create_project.sh
+    source ./lib/composer_create-project.sh
 }
 
 stop()
