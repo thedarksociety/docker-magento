@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Project:     Docker Magento
+# Description: Test runner for Docker Magento.
+# Author:      Rye Miller
+#
+# Version: 0.1 [2020-11-22]
+# Copyright: Copyright (c) 2020, Rye Miller

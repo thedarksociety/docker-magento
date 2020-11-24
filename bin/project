@@ -11,6 +11,18 @@ start()
     docker-compose up -d
 }
 
+environment:check()
+{
+    source ./lib/composer_auth-check.sh
+}
+
+create()
+{
+    source ./config/env/app.env
+    environment:check
+    source ./lib/composer_create-project.sh
+}
+
 stop()
 {
     docker-compose down -v
