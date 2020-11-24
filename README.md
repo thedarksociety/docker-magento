@@ -38,9 +38,15 @@ Getting Started
  
 ### CLI Commands
 
+Goal here will be moving the multiple commands into their own executable, i.e. bin/exec, bin/environment, etc... Then, globalize lib and move to one script.
+
+ * `bin/project exec` - Run CLI commands
+ * `bin/project exec:root` - Run CLI commands as root
+ * `bin/project exec:notty` - Run CLI commands w/ no TTY (WIP)
+ * `bin/project exec:notty:root` - Run CLI commands as root w/ no TTY (WIP)
  * `bin/project start` - starts the project
  * `bin/project environment:check` - checks various environment dependencies
- * `bin/project create [VERSION]` - creates a composer project of the Magento version specified
+ * `bin/project environment:create [VERSION]` - creates a composer project of the Magento version specified
  * `bin/project stop` - stops the project
 
 

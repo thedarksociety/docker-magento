@@ -6,19 +6,38 @@
 # Version: 0.1 [2020-11-22]
 # Copyright: Copyright (c) 2020, Rye Miller
 
+TEXT_PRIMARY=
+TEXT_SECONDARY=
+TEXT_LIGHT=
+TEXT_DARK=
+TEXT_WARNING=
+TEXT_ERROR=
+TEXT_CLEAR=
+
+# Setup & Configuration
+# ---------------------------------------------------------------------------- #
+
+DOCKER_MAGENTO_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
 
 exec()
 {
-    echo "not root"
     docker-compose exec phpfpm "$@"
 }
 
 exec:root()
 {
-    echo "root"
     docker-compose exec -u root phpfpm "$@"
 }
 
+exec:notty()
+{
+    docker-compose exec -T phpfpm "$@"
+}
+
+exec:notty:root()
+{
+    docker-compose exec -u root -T phpfpm "$@"
+}
 
 start()
 {
@@ -27,10 +46,11 @@ start()
 
 environment:check()
 {
+    source ./lib/config_detect-os.sh
     source ./lib/composer_auth-check.sh
 }
 
-create()
+environment:create()
 {
     source ./config/env/app.env
     environment:check
