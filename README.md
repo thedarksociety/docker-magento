@@ -32,6 +32,8 @@ Getting Started
  * Am I managing it?
  * Composer skeleton install or full project install?
  * Cloud/Enterprise Installs?
+ * Validate the version lol, v222220.2.22.2
+ * TTY addition to the docker-compose, does -T override? 
  
  
 ### CLI Commands

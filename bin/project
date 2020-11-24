@@ -6,6 +6,20 @@
 # Version: 0.1 [2020-11-22]
 # Copyright: Copyright (c) 2020, Rye Miller
 
+
+exec()
+{
+    echo "not root"
+    docker-compose exec phpfpm "$@"
+}
+
+exec:root()
+{
+    echo "root"
+    docker-compose exec -u root phpfpm "$@"
+}
+
+
 start()
 {
     docker-compose up -d
