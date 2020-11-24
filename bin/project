@@ -16,7 +16,7 @@ environment:check()
     source ./lib/composer_auth.sh
 }
 
-create:project()
+create()
 {
     environment:check
     source ./lib/composer_create_project.sh

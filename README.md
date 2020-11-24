@@ -26,9 +26,19 @@ Getting Started
  * Mailhog
  * Node
 
+### Application Notes
 
+ * How does the auth.json .env get managed, checked, moved, etc.
+ * Am I managing it?
+ * Composer skeleton install or full project install?
+ * Cloud/Enterprise Installs?
+ 
+ 
 ### CLI Commands
+
  * `bin/project start` - starts the project
+ * `bin/project environment:check` - checks various environment dependencies
+ * `bin/project create [VERSION]` - creates a composer project of the Magento version specified
  * `bin/project stop` - stops the project
 
 

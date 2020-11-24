@@ -6,9 +6,9 @@
 VERSION=$1
 
 composer create-project \
-    --no-install \
-    --repository-url=https://repo.magento.com/ \
-    --ignore-platform-reqs \
-    --prefer-dist \
-    magento/project-community-edition=$VERSION \
-    src
+  --no-install \
+  --repository-url=https://repo.magento.com/ \
+  --ignore-platform-reqs \
+  --prefer-dist \
+  magento/project-community-edition=$VERSION \
+  src
