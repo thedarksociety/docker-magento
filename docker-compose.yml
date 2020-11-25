@@ -83,7 +83,8 @@ services:
   phpfpm:
     container_name: phpfpm
     hostname: phpfpm.magento
-    image: php:7.4-fpm
+    build:
+      context: docker/php/7.4/fpm
     depends_on:
       - db
       - cache
