@@ -39,6 +39,11 @@ environment:create()
     source $LIB_PATH/composer_create-project.sh
 }
 
+environment:install()
+{
+    source $LIB_PATH/files_copy-to.sh
+}
+
 stop()
 {
     docker-compose down -v
