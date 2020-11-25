@@ -6,38 +6,18 @@
 # Version: 0.1 [2020-11-22]
 # Copyright: Copyright (c) 2020, Rye Miller
 
-TEXT_PRIMARY=
-TEXT_SECONDARY=
-TEXT_LIGHT=
-TEXT_DARK=
-TEXT_WARNING=
-TEXT_ERROR=
-TEXT_CLEAR=
-
 # Setup & Configuration
 # ---------------------------------------------------------------------------- #
 
-DOCKER_MAGENTO_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
+DOCKER_MAGENTO_BIN_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
+DOCKER_MAGENTO_PATH="${DOCKER_MAGENTO_BIN_PATH}/.."
 
-exec()
-{
-    docker-compose exec phpfpm "$@"
-}
+CONFIG_PATH="${DOCKER_MAGENTO_PATH}/config"
+DATA_PATH="${DOCKER_MAGENTO_PATH}/data"
+LIB_PATH="${DOCKER_MAGENTO_PATH}/lib"
 
-exec:root()
-{
-    docker-compose exec -u root phpfpm "$@"
-}
-
-exec:notty()
-{
-    docker-compose exec -T phpfpm "$@"
-}
-
-exec:notty:root()
-{
-    docker-compose exec -u root -T phpfpm "$@"
-}
+# Console
+# ---------------------------------------------------------------------------- #
 
 start()
 {
@@ -46,15 +26,17 @@ start()
 
 environment:check()
 {
-    source ./lib/config_detect-os.sh
-    source ./lib/composer_auth-check.sh
+    source $CONFIG_PATH/env/composer.env
+    source $LIB_PATH/config_detect-os.sh
+    source $LIB_PATH/composer_auth-check.sh
+    source $LIB_PATH/composer_auth-create.sh
 }
 
 environment:create()
 {
-    source ./config/env/app.env
+    source $CONFIG_PATH/env/app.env
     environment:check
-    source ./lib/composer_create-project.sh
+    source $LIB_PATH/composer_create-project.sh
 }
 
 stop()
