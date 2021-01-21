@@ -1,0 +1,33 @@
+version: '3'
+services:
+  appdata:
+    container_name: appdata
+    image: tianon/true
+    networks:
+      - frontend
+      - backend
+    volumes: &appdata
+      - sockdata:/sock
+      - /var/www/html
+      - ~/.composer/cache:/root/.composer/cache:cached
+
+    phpfpm:
+      container_name: phpfpm
+      hostname: phpfpm.magento
+      build:
+        context: .docker/images/php/7.4/fpm
+      depends_on:
+        - db
+        - cache
+        - elasticsearch
+      env_file:
+      - config/env/default.env
+      networks:
+        - backend
+      tty: true
+      volumes: *appdata
+        # - ./config/php/ext-xdebug.ini:/usr/local/etc/php/conf.d/ext-debug.ini
+        # - ./config/php/mailhog.ini:/usr/local/etc/php/conf.d/mailhog.ini
+        # - ./config/php/php-fpm.conf:/usr/local/etc/php/conf.d/php-fpm.conf
+        # - ./config/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+      restart: always

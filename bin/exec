@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Exec type cli runner for Docker Magento.
+
+# docker-compose tty: true is the same? (docker exec -ti)
+# stdin_open too?
+
+EXEC_TYPE=${1:-""}
+
+if [[ "${EXEC_TYPE}" == "--root" ]]; then
+    shift
+    OPTIONS="-u root"
+elif [[ "${EXEC_TYPE}" == "--root-notty" ]]; then
+    shift
+    OPTIONS="-u root -T"
+elif [[ "${EXEC_TYPE}" == "--notty" ]]; then
+    shift
+    OPTIONS="-T"
+else
+    OPTIONS=""
+fi
+
+EXEC="docker-compose exec phpfpm"
+
+if [[ "${OPTIONS}" != "" ]]; then
+    EXEC="docker-compose exec ${OPTIONS} phpfpm"
+fi
+
+$EXEC "$@"

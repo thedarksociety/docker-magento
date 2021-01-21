@@ -6,6 +6,19 @@
 # Version: 0.1 [2020-11-22]
 # Copyright: Copyright (c) 2020, Rye Miller
 
+# Setup & Configuration
+# ---------------------------------------------------------------------------- #
+
+DOCKER_MAGENTO_BIN_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
+DOCKER_MAGENTO_PATH="${DOCKER_MAGENTO_BIN_PATH}/.."
+
+CONFIG_PATH="${DOCKER_MAGENTO_PATH}/config"
+DATA_PATH="${DOCKER_MAGENTO_PATH}/data"
+LIB_PATH="${DOCKER_MAGENTO_PATH}/lib"
+
+# Console
+# ---------------------------------------------------------------------------- #
+
 start()
 {
     docker-compose up -d
@@ -13,14 +26,22 @@ start()
 
 environment:check()
 {
-    source ./lib/composer_auth-check.sh
+    source $CONFIG_PATH/env/composer.env
+    source $LIB_PATH/config_detect-os.sh
+    source $LIB_PATH/composer_auth-check.sh
+    source $LIB_PATH/composer_auth-create.sh
 }
 
-create()
+environment:create()
 {
-    source ./config/env/app.env
+    source $CONFIG_PATH/env/app.env
     environment:check
-    source ./lib/composer_create-project.sh
+    source $LIB_PATH/composer_create-project.sh
+}
+
+environment:install()
+{
+    source $LIB_PATH/files_copy-to.sh
 }
 
 stop()

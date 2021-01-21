@@ -13,4 +13,4 @@ composer create-project \
   --ignore-platform-reqs \
   --prefer-dist \
   magento/project-community-edition=$VERSION \
-  src
+  docroot

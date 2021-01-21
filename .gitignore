@@ -1,8 +1,11 @@
 .DS_Store
 /.idea/
 
+/bin/tests
+
 # For obvious reasons.
 /config/env/*.env
+/config/auth.json
 
 /src/*
 !/src/index.php
