@@ -3,6 +3,8 @@
 
 /bin/tests
 
+/var
+
 # For obvious reasons.
 /config/env/*.env
 /config/auth.json

@@ -41,9 +41,15 @@ Getting Started
  
 ### CLI Commands
 
-Goal here will be moving the multiple commands into their own executable namespace with flags rather than having their own script, i.e. bin/exec, bin/environment, etc... Then, globalize lib and move to one script.
+Goal here will be moving the multiple commands into their own executable namespace with flags rather than 
+having their own script, i.e. bin/exec, bin/environment, etc... Then, globalize lib and move to one script.
 
- * `bin/exec` - Run CLI commands
+| Command | Description | Additional Options or Examples |
+| ------- | ----------- | ------------------------------ |
+| `bin/project init` | 
+| `bin/exec` | Run CLI commands. | |
+
+
  * `bin/exec --root` - Run CLI commands as root
  * `bin/exec --root-notty` - Run CLI commands as root w/ no TTY (WIP)
  * `bin/exec --notty` - Run CLI commands w/ no TTY (WIP)
@@ -51,6 +57,7 @@ Goal here will be moving the multiple commands into their own executable namespa
  * `bin/project environment:check` - checks various environment dependencies
  * `bin/project environment:create [VERSION]` - creates a composer project of the Magento version specified
  * `bin/project stop` - stops the project
+
 
 
 Support
