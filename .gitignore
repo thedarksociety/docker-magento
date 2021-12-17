@@ -3,7 +3,7 @@
 
 /bin/tests
 
-/var
+/var/template/ssl
 
 # For obvious reasons.
 /config/env/*.env
