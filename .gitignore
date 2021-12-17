@@ -9,3 +9,12 @@
 
 /src/*
 !/src/index.php
+
+/www/*
+!/www/index.php
+
+/*.sql
+/*.tar.*
+/*.gz
+/.env
+*.pem
