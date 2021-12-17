@@ -6,18 +6,19 @@
 # Version: 0.1 [2020-11-22]
 # Copyright: Copyright (c) 2020, Rye Miller
 
-# Setup & Configuration
-# ---------------------------------------------------------------------------- #
-
 DOCKER_MAGENTO_BIN_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
 DOCKER_MAGENTO_PATH="${DOCKER_MAGENTO_BIN_PATH}/.."
 
 CONFIG_PATH="${DOCKER_MAGENTO_PATH}/config"
 DATA_PATH="${DOCKER_MAGENTO_PATH}/data"
 LIB_PATH="${DOCKER_MAGENTO_PATH}/lib"
+VAR_PATH="${DOCKER_MAGENTO_PATH}/var"
 
-# Console
-# ---------------------------------------------------------------------------- #
+
+init()
+{
+    echo "Welcome to Yet Another Magento Docker"
+}
 
 start()
 {

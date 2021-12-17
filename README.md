@@ -46,18 +46,15 @@ having their own script, i.e. bin/exec, bin/environment, etc... Then, globalize 
 
 | Command | Description | Additional Options or Examples |
 | ------- | ----------- | ------------------------------ |
-| `bin/project init` | 
+| `bin/project init` | Introduces the project. | |
+| `bin/project start` | Starts up the project. | |
+| `bin/project environment:check` | checks various environment dependencies. | |
+| `bin/project environment:create [VERSION]` | creates a composer project of the Magento version specified. | |
+| `bin/project stop` | Stops the project. | |
 | `bin/exec` | Run CLI commands. | |
-
-
- * `bin/exec --root` - Run CLI commands as root
- * `bin/exec --root-notty` - Run CLI commands as root w/ no TTY (WIP)
- * `bin/exec --notty` - Run CLI commands w/ no TTY (WIP)
- * `bin/project start` - starts the project
- * `bin/project environment:check` - checks various environment dependencies
- * `bin/project environment:create [VERSION]` - creates a composer project of the Magento version specified
- * `bin/project stop` - stops the project
-
+| `bin/exec --root` | Run CLI commands as root | |
+| `bin/exec --root-notty` | Run CLI commands as root w/ no TTY (WIP) | |
+| `bin/exec --notty` | Run CLI commands w/ no TTY (WIP) | |
 
 
 Support
@@ -99,4 +96,4 @@ This project/code is released under [the MIT license](https://github.com/iods/do
 Copyright
 ---------
 
-(c) 2020 Rye Miller. All Rights Reserved.
+(c) 2021 Rye Miller. All Rights Reserved.
