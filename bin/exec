@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
-# Exec type cli runner for Docker Magento.
+# Project:     Docker Magento
+# Description: Exec type cli runner for Docker Magento.
+# Author:      Rye Miller
+#
+# Version: 0.1 [2020-11-22]
+# Copyright: Copyright (c) 2021, Rye Miller
 
 # docker-compose tty: true is the same? (docker exec -ti)
 # stdin_open too?

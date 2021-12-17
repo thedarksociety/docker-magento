@@ -1,13 +1,37 @@
 #
-# php 7.4 Dockerfile for Docker Magento [YAMD]
+# php 7.4 Apache Dockerfile for Docker Magento [YAMD]
 #
-FROM php:7.4-fpm
+FROM php:7.4-apache
 
 LABEL \
     maintainer="Rye Miller <rye@drkstr.dev>" \
     version="0.1.0"
 
+
 ARG DEBIAN_FRONTEND=noninteractive
+ARG TIMEZONE
+
+
+ENV APACHE_LOCK_DIR=/var/lock/apache2
+ENV APACHE_LOG_DIR=/var/log/apache2
+ENV APACHE_PID_FILE=/var/run/apache2.pid
+ENV APACHE_RUN_DIR=/var/run/apache2
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_RUN_USER=www-data
+
+ENV XDEBUG_PORT 9000
+
+RUN \
+    ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
+    && echo ${TIMEZONE} > /etc/timezone  \
+    && printf '[PHP]\ndate.timezone = "%s"\n' ${TIMEZONE} > /usr/local/etc/php/conf.d/php.ini
+
+
+RUN a2enmod rewrite
+
+
+RUN echo "memory_limit=3G" > /usr/local/etc/php/conf.d/memory-limit-php.ini
+
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
@@ -47,5 +71,5 @@ RUN chmod +x /usr/local/bin/composer
 
 WORKDIR /var/www
 
-
+RUN usermod -u 1000 www-data
 USER www-data

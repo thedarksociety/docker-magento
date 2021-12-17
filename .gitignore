@@ -3,9 +3,20 @@
 
 /bin/tests
 
+/var
+
 # For obvious reasons.
 /config/env/*.env
 /config/auth.json
 
 /src/*
 !/src/index.php
+
+/www/*
+!/www/index.php
+
+/*.sql
+/*.tar.*
+/*.gz
+/.env
+*.pem
