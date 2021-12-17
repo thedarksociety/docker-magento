@@ -1,0 +1,165 @@
+# Docker for Magento
+# Version: 0.1 [2020-11-21]
+#
+# Copyright: Copyright (c) 2020, Rye Miller
+
+version: '3'
+
+services:
+  db:
+    container_name: db
+    hostname: db.magento
+    image: mariadb:10.2
+    env_file:
+      - config/env/db.env
+    networks:
+      - backend
+    expose:
+      - 3306
+    ports:
+      - "3306:3306"
+    tty: true
+    volumes_from:
+      - dbdata
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+
+  dbdata:
+    container_name: dbdata
+    image: tianon/true
+    networks:
+      - backend
+    volumes:
+      - /var/lib/mysql
+      # - ./data/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d/
+
+  cache:
+    container_name: cache
+    hostname: cache.magento
+    image: redis:5.0-alpine
+    depends_on:
+      - db
+    networks:
+      - backend
+    tty: true
+
+  elasticsearch:
+    container_name: elasticsearch
+    hostname: elasticsearch.magento
+    image: elasticsearch:7.9.0
+    environment:
+      - bootstrap.memory_lock=true
+      - discovery-type=single-node
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
+    networks:
+      - backend
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      # Do I use a tianon/true here too?
+      - elasticsearchdata:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+
+  appdata:
+    container_name: appdata
+    image: tianon/true
+    networks:
+      - frontend
+      - backend
+    volumes: &appdata
+      - sockdata:/sock
+      - /var/www/html
+      - ~/.composer/cache:/root/.composer/cache:cached
+
+  phpfpm:
+    container_name: phpfpm
+    hostname: phpfpm.magento
+    build:
+      context: .docker/images/php/7.4/fpm
+    depends_on:
+      - db
+      - cache
+      - elasticsearch
+    env_file:
+      - config/env/default.env
+    networks:
+      - backend
+    tty: true
+    volumes: *appdata
+      # - ./config/php/ext-xdebug.ini:/usr/local/etc/php/conf.d/ext-debug.ini
+      # - ./config/php/mailhog.ini:/usr/local/etc/php/conf.d/mailhog.ini
+      # - ./config/php/php-fpm.conf:/usr/local/etc/php/conf.d/php-fpm.conf
+    # - ./config/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+    restart: always
+
+  nginx:
+    container_name: app
+    hostname: nginx.magento
+    image: nginx:1.18
+    depends_on:
+      - phpfpm
+    networks:
+      - backend
+      - frontend
+    ports:
+      - "80:80"
+      - "443:443"
+    tty: true
+    volumes: *appdata
+      # - ./data/logs/nginx:/var/log/nginx
+      # - ./config/nginx/auth:/etc/nginx/auth
+      # - ./config/nginx/sites-enabled/default.conf:/etc/nginx/sites-enabled/default.conf
+      # - ./config/nginx/ssl/cert.key:/etc/nginx/ssl/cert.key
+      # - ./config/nginx/ssl/cert.pem:/etc/nginx/ssl/cert.pem
+    # - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+
+  rabbitmq:
+    container_name: queue
+    hostname: rabbitmq.magento
+    image: rabbitmq:3.8-management-alpine
+    networks:
+      - backend
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      # Do I use that tianon/true here again? try it out maybe w/ es
+      - rabbitmqdata:/var/lib/rabbitmq
+
+  mailhog:
+    container_name: mailhog
+    hostname: mail.magento
+    image: mailhog/mailhog:latest
+    depends_on:
+      - phpfpm
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "1025"
+      - "8025:8025"
+
+
+networks:
+  backend:
+    driver: bridge
+  frontend:
+    driver: bridge
+
+
+volumes:
+  appdata:
+    driver: local
+  dbdata:
+  elasticsearchdata:
+  rabbitmqdata:
+  sockdata:
