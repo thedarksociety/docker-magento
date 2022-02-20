@@ -1,0 +1,11 @@
+# YAMD - Yet Another Magento Docker
+# Version: 0.1 [2022-02-22]
+version: '3'
+
+services:
+
+  ingress:
+    ports:
+      # Fix these ports
+      - "80:8000"
+      - "443:8443"
