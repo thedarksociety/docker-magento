@@ -1,0 +1,18 @@
+# MagedIn - Magento DockerLab
+# (https://github.com/magedin/magento-dockerlab)
+version: "3.5"
+
+services:
+  nginx:
+    volumes: &appvolumes
+      # To sync your SSH to the container, uncomment the following line:
+      #- ~/.ssh/id_rsa:/var/www/.ssh/id_rsa:cached
+      - ./config/nginx/conf.d/:/etc/nginx/conf.d/
+      - ./src:/var/www/html
+
+  php:
+    volumes: *appvolumes
+
+  # Disabling cron by default as it uses higher CPU, enable if needed
+  #cron:
+  #  volumes: *appvolumes

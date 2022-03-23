@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Project:     Docker Magento
+# Description: Project CLI tool for running Docker Magento.
+# Author:      Rye Miller
+#
+# Version: 0.1 [2020-11-22]
+# Copyright: Copyright (c) 2021, Rye Miller
+

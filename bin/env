@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# YAMD - Yet Another Magento Docker
+# Version 0.1.0 [2022-02-22]
+
+./bin/helper/environment-create

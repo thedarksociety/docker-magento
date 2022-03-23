@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# YAMD - Yet Another Magento Docker
+# Version 0.1.0 [2022-02-22]
+
+# [ -z "$1" ] && echo "Please specify the version to download (ex. 2.0.0)" && exit
+
+[ -z "$1" ] && echo "Please specify the version to download (ex. 2.4.4)" && exit
+

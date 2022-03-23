@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# YAMD - Yet Another Magento Docker
+# Version 0.1.0 [2022-02-22]
+
+ENV_FILE=.env
+ENV_FILES=('build' 'composer' 'services' 'magento' 'database' 'redis' 'elasticsearch' 'rabbitmq' 'config' 'default')
+
+
+# Copies the contents of each file into the
+# base .env file from each env file.
+function copy()
+{
+  cat ${2} >> ${ENV_FILE}
+
+  if [ ! -z ${3} ]; then
+    echo >> ${ENV_FILE}
+    echo >> ${ENV_FILE}
+  fi
+}
+
+
+# Creates an empty .env file in the root for
+# individual files' options to be copied to.
+function create_env_file()
+{
+  touch .env
+}
+
+
+# Loops through the env directory and matches
+# options with files then copies their contents
+function loop_env_files()
+{
+  for i in ${ENV_FILES[@]}; do
+    if [ -f ./.docker/env/${i}.env ]; then
+      copy ${i} ./.docker/env/${i}.env y;
+    fi
+  done;
+}
+
+
+# Checks if there is an env file in the root
+# and if not creates the env file.
+if [ ! -f ${ENV_FILE} ]; then
+  create_env_file
+  loop_env_files
+fi

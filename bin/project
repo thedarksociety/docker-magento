@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# YAMD - Yet Another Magento Docker
+# Version 0.1.0 [2022-02-22]
+
+BIN_PATH=$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)
+PROJECT_PATH="${BIN_PATH}/.."
+
+VERSION=${2:-}
+DOMAIN=${3:-local.magento.test}
+
+# Builds environment and downloads/extracts Magento
+init()
+{
+    echo
+    echo "Welcome,to Yet Another Magento Docker. Let's get started."
+    echo
+    source ${BIN_PATH}/env
+    source .env
+    echo ${VERSION}
+    echo ${DOMAIN}
+}
+
+"$@"

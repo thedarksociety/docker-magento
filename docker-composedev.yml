@@ -1,0 +1,11 @@
+# [YAMD] - Yet Another Magento Docker
+# Version: 0.1 [2020-11-21]
+version: '3'
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.12.0.0/16

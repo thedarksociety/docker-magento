@@ -1,0 +1,14 @@
+# MagedIn - Magento DockerLab
+# (https://github.com/magedin/magento-dockerlab)
+version: "3.5"
+
+services:
+  kibana:
+    image: kibana:7.12.0
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    env_file: ./.env
+    networks:
+      - magedin

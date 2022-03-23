@@ -1,0 +1,8 @@
+# [YAMD] - Yet Another Magento Docker
+# Version: 0.1 [2022-03-11]
+version: '3'
+
+services:
+
+  reverse:
+    container_name: 'reverse'
